@@ -31,10 +31,12 @@ def makePerson(scale):
     painter.right(180)
     painter.forward(scale*30)
     painter.penup()
+
+def makeEyes(x,y):
     painter.goto(0,0)
     painter.right(90)
     painter.forward(50)
-    painter.goto(25,-50)
+    painter.goto(x,y)
     painter.back(7)
     painter.right(90)
     painter.forward(3)
@@ -73,6 +75,29 @@ def makePerson(scale):
     painter.forward(10)
     painter.penup()
     painter.goto(0,0)
+
+def makeHair(scale, x, y):
+    painter.penup()
+    painter.goto(x - scale * 25, y + scale * 25)
+    painter.pendown()
+    painter.pensize(2)
+    painter.pencolor("black")
+    
+    for i in range(10):
+        painter.penup()
+        painter.goto(x - scale * 25 + i * scale * 5, y + scale * 30)
+        painter.pendown()
+        painter.goto(x - scale * 25 + i * scale * 5, y + scale * 10)
+    
+    for side in [-1, 1]:
+        for _ in range(10):
+            painter.penup()
+            painter.goto(x + side * scale * 25, y + scale * 30 - _ * scale * 5)
+            painter.pendown()
+            painter.goto(x + side * scale * 25 + side * scale * 10, y - scale * 50)
+
+    
+
 
 
 painter.begin_fill()
@@ -126,8 +151,143 @@ painter.fillcolor("lightblue")
 makeSquare(20)
 painter.end_fill()
 
-makePerson(1)
+makePerson(0.5)
+makeEyes(25,-50)
 
+painter.goto(75,-35)
+makePerson(0.5)
+makeEyes(75,-50)
+makeHair(0.5, 75, -45) 
+
+painter.penup()
+painter.goto(125,-65)
+painter.pendown()
+painter.pensize(1)
+makePerson(0.4)
+makeEyes(125,-80)
+makeHair(0.4, 125, -75)
+
+
+
+painter.penup()
+painter.goto(175, 48)
+painter.pendown()
+painter.begin_fill()
+painter.fillcolor("yellow")
+painter.circle(15)
+painter.end_fill()
+
+for i in range(0, 360, 30):
+    painter.penup()
+    painter.goto(175, 30)
+    painter.setheading(i)
+    painter.forward(15)
+    painter.pendown()
+    painter.forward(25)
+
+def draw_horse(x, y, scale=1):
+    def draw_body():
+        painter.penup()
+        painter.goto(x - 100 * scale, y - 50 * scale)
+        painter.pendown()
+        painter.begin_fill()
+        painter.fillcolor("brown")
+        painter.setheading(0)
+        painter.forward(150 * scale)
+        painter.left(90)
+        painter.forward(50 * scale)
+        painter.left(90)
+        painter.forward(150 * scale)
+        painter.left(90)
+        painter.forward(50 * scale)
+        painter.end_fill()
+
+    def draw_head():
+        painter.penup()
+        painter.goto(x + 50 * scale, y)
+        painter.pendown()
+        painter.begin_fill()
+        painter.fillcolor("brown")
+        painter.setheading(45)
+        painter.forward(40 * scale)
+        painter.right(45)
+        painter.forward(30 * scale)
+        painter.right(45)
+        painter.forward(40 * scale)
+        painter.right(135)
+        painter.forward(40 * scale)
+        painter.end_fill()
+
+    def draw_legs():
+        painter.penup()
+        painter.goto(x - 90 * scale, y - 50 * scale)
+        painter.pendown()
+        for _ in range(2):
+            painter.setheading(270)
+            painter.forward(40 * scale)
+            painter.backward(40 * scale)
+            painter.penup()
+            painter.forward(30 * scale)
+            painter.pendown()
+
+        painter.penup()
+        painter.goto(x + 30 * scale, y - 50 * scale)
+        painter.pendown()
+        for _ in range(2):
+            painter.setheading(270)
+            painter.forward(40 * scale)
+            painter.backward(40 * scale)
+            painter.penup()
+            painter.forward(30 * scale)
+            painter.pendown()
+
+    def draw_tail():
+        painter.penup()
+        painter.goto(x - 100 * scale, y)
+        painter.setheading(180)
+        painter.pendown()
+        painter.forward(30 * scale)
+        painter.left(45)
+        painter.forward(30 * scale)
+        painter.backward(30 * scale)
+        painter.right(90)
+        painter.forward(30 * scale)
+        painter.backward(30 * scale)
+
+    def draw_mane():
+        painter.penup()
+        painter.goto(x - 50 * scale, y)
+        painter.setheading(90)
+        painter.pendown()
+        for _ in range(5):
+            painter.forward(15 * scale)
+            painter.backward(15 * scale)
+            painter.penup()
+            painter.forward(10 * scale)
+            painter.pendown()
+
+    def draw_eyes():
+        painter.penup()
+        painter.goto(x + 65 * scale, y + 15 * scale)
+        painter.pendown()
+        painter.dot(10 * scale, "black")
+
+        painter.penup()
+        painter.goto(x + 85 * scale, y + 15 * scale)
+        painter.pendown()
+        painter.dot(10 * scale, "black")
+
+    draw_body()
+    draw_head()
+    draw_legs()
+    draw_tail()
+    draw_mane()
+    draw_eyes()
+
+
+painter.penup()
+painter.goto(500, -100)
+draw_horse(250,-75,scale=0.5)
 
 
 wn = trtl.Screen()
