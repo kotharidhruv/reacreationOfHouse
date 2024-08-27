@@ -2,12 +2,47 @@ import turtle as trtl
 
 painter = trtl.Turtle()
 
-def makeSquare(size):
+def makeSquare(size): #Draws a square with a given size
     for _ in range(4):
         painter.forward(size)
         painter.right(90)
 
-def makePerson(scale):
+def drawBackground(): #Draws the blue sky background
+    painter.penup()
+    painter.goto(-475, -500)
+    painter.setheading(90)
+    painter.pendown()
+    painter.begin_fill()
+    painter.fillcolor("#00BFFF")
+    makeSquare(1000)
+    painter.end_fill()
+
+drawBackground()
+
+def drawGrass(): #Draws the grass that the house and the people are standing on
+    painter.penup()
+    painter.goto(-475,-100)
+    painter.setheading(0)
+    painter.pendown()
+    painter.begin_fill()
+    painter.fillcolor("green")
+    painter.forward(1000)
+    painter.right(90)
+    painter.forward(400)
+    painter.right(90)
+    painter.forward(1000)
+    painter.right(90)
+    painter.forward(400)
+    painter.end_fill()
+
+drawGrass()
+
+painter.penup()
+painter.goto(0,0)
+painter.setheading(0)
+painter.pendown()
+
+def makePerson(scale): #Draws a person with a given scale
     painter.begin_fill()
     painter.fillcolor("#c68642")
     painter.circle(scale*25)
@@ -32,7 +67,7 @@ def makePerson(scale):
     painter.forward(scale*30)
     painter.penup()
 
-def makeEyes(x,y):
+def makeEyes(x,y): #Draws eyes at given coordinates
     painter.goto(0,0)
     painter.right(90)
     painter.forward(50)
@@ -76,7 +111,7 @@ def makeEyes(x,y):
     painter.penup()
     painter.goto(0,0)
 
-def makeHair(scale, x, y):
+def makeHair(scale, x, y): #Worked along with AI to write this function which draws hair at the given coordinates at a given scale
     painter.penup()
     painter.goto(x - scale * 25, y + scale * 25)
     painter.pendown()
@@ -99,7 +134,7 @@ def makeHair(scale, x, y):
     
 
 
-
+#The house structure under the roof is drawn using the following code:
 painter.begin_fill()
 painter.fillcolor("#bd952a")
 
@@ -107,6 +142,7 @@ makeSquare(100)
 
 painter.end_fill()
 
+#The roof is drawn using the following code:
 painter.begin_fill()
 painter.fillcolor("red")
 
@@ -121,6 +157,7 @@ painter.end_fill()
 painter.penup()
 painter.goto(25, -50)
 
+#Draws the door of the house
 painter.pendown()
 painter.begin_fill()
 painter.fillcolor("brown")
@@ -136,6 +173,7 @@ painter.penup()
 painter.forward(15)
 painter.pendown()
 
+#Draws the windows of the house
 painter.begin_fill()
 painter.fillcolor("lightblue")
 makeSquare(20)
@@ -151,10 +189,13 @@ painter.fillcolor("lightblue")
 makeSquare(20)
 painter.end_fill()
 
+#Makes the first person (AKA the father)
 makePerson(0.5)
 makeEyes(25,-50)
 
 painter.goto(75,-35)
+
+#Draws the second person (AKA the mother)
 makePerson(0.5)
 makeEyes(75,-50)
 makeHair(0.5, 75, -45) 
@@ -163,6 +204,8 @@ painter.penup()
 painter.goto(125,-65)
 painter.pendown()
 painter.pensize(1)
+
+#Draws the third person (AKA the child)
 makePerson(0.4)
 makeEyes(125,-80)
 makeHair(0.4, 125, -75)
@@ -171,6 +214,8 @@ makeHair(0.4, 125, -75)
 
 painter.penup()
 painter.goto(175, 48)
+
+#Draws the sun
 painter.pendown()
 painter.begin_fill()
 painter.fillcolor("yellow")
@@ -185,6 +230,7 @@ for i in range(0, 360, 30): #Used AI to generate this code in which the sun rays
     painter.pendown()
     painter.forward(25)
 
+#Draws the horse
 def draw_horse(x, y, scale=1):
     def draw_body():
         painter.penup()
@@ -276,18 +322,19 @@ def draw_horse(x, y, scale=1):
         painter.goto(x + 85 * scale, y + 15 * scale)
         painter.pendown()
         painter.dot(10 * scale, "black")
-
+    
+    #Puts all the parts of the horse together
     draw_body()
     draw_head()
     draw_legs()
     draw_tail()
-    draw_mane()
     draw_eyes()
 
 
 painter.penup()
 painter.goto(500, -100)
 draw_horse(250,-75,scale=0.5)
+
 
 
 wn = trtl.Screen()
