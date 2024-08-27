@@ -177,7 +177,7 @@ painter.fillcolor("yellow")
 painter.circle(15)
 painter.end_fill()
 
-for i in range(0, 360, 30):
+for i in range(0, 360, 30): #Used AI to generate this code in which the sun rays are drawn and coming out of the circle.
     painter.penup()
     painter.goto(175, 30)
     painter.setheading(i)
